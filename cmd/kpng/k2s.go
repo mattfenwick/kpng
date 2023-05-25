@@ -27,6 +27,7 @@ import (
 
 	"k8s.io/client-go/kubernetes"
 	"k8s.io/client-go/tools/clientcmd"
+	"k8s.io/klog/v2"
 
 	// this depends on the kpng server to run the integrated app
 	"sigs.k8s.io/kpng/server/jobs/kube2store"
@@ -95,6 +96,7 @@ func kube2storeCmdSetup() error {
 
 // kube2storeCmdRun kicks off the kube2store job.
 func kube2storeCmdRun(ctx context.Context, store *proxystore.Store) {
+	klog.Infof("running kube2storeCmdRun")
 	kube2store.Job{
 		Kube:   kubeClient,
 		Store:  store,

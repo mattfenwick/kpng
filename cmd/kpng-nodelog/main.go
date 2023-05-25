@@ -35,6 +35,7 @@ var (
 )
 
 func main() {
+	fmt.Println("hi -- modified kpng-nodelog/main")
 	r := &client.Runner{}
 
 	cmd := &cobra.Command{

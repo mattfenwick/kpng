@@ -98,6 +98,9 @@ spec:
         - name: GOLANG_PROTOBUF_REGISTRATION_CONFLICT
           value: warn
         name: kpng-{{ .Backend }}
+        ports:
+        - containerPort: 9098
+          protocol: TCP
         securityContext:
             privileged: true
         volumeMounts:

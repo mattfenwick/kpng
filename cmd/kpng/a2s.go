@@ -20,6 +20,7 @@ import (
 	"context"
 
 	"github.com/spf13/cobra"
+	"k8s.io/klog/v2"
 
 	"sigs.k8s.io/kpng/client/tlsflags"
 	"sigs.k8s.io/kpng/server/jobs/api2store"
@@ -63,6 +64,7 @@ func api2storeCmd() *cobra.Command {
 
 // api2storeCmdRun kicks off the api2store job.
 func api2storeCmdRun(ctx context.Context, store *proxystore.Store) {
+	klog.Infof("running api2storeCmdRun")
 	ctx = setupGlobal()
 	api2storeJob.Store = store
 	api2storeJob.Run(ctx)

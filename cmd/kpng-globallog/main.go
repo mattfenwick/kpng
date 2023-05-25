@@ -35,6 +35,7 @@ import (
 )
 
 func main() {
+	fmt.Println("hi -- modified kpng-globallog/main")
 	cmd := &cobra.Command{
 		Run: func(_ *cobra.Command, _ []string) {
 			run()

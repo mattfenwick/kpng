@@ -11,8 +11,10 @@ metadata:
   namespace: kube-system
 spec:
   ports:
-  - name: kpng-metrics
+  - name: kpng-main-metrics
     port: 9099
+  - name: kpng-iptables-metrics
+    port: 9098
   selector:
     app: kpng
   sessionAffinity: ClientIP
@@ -31,7 +33,12 @@ metadata:
 spec:
   endpoints:
   - interval: 1s
-    port: kpng-metrics
+    port: kpng-main-metrics
+  - interval: 1s
+    port: kpng-iptables-metrics
+  namespaceSelector:
+    matchNames:
+    - kube-system
   selector:
     matchLabels:
       app.kubernetes.io/component: kpng

@@ -45,10 +45,26 @@ helm upgrade --install my-nginx ingress-nginx \
 # metrics
 kubectl create ns "$METRICS_NS" || true
 
-helm upgrade --install my-prom prometheus \
+helm upgrade --install my-prom-stack kube-prometheus-stack \
   --repo https://prometheus-community.github.io/helm-charts \
-  --version 14.0.0 \
+  --version 45.25.0 \
   --namespace "$METRICS_NS"
+
+# helm upgrade --install my-prom prometheus \
+#   --repo https://prometheus-community.github.io/helm-charts \
+#   --version 22.0.2 \
+#   --namespace "$METRICS_NS"
+
+# helm upgrade --install my-prom-crds prometheus-operator-crds \
+#   --repo https://prometheus-community.github.io/helm-charts \
+#   --version 3.0.0 \
+#   --namespace "$METRICS_NS"
+
+# DEPRECATED -- NO
+# helm upgrade --install my-prom-operator prometheus-operator \
+#   --repo https://prometheus-community.github.io/helm-charts \
+#   --version 9.3.2 \
+#   --namespace "$METRICS_NS"
 
 # create datasource configuration
 

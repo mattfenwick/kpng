@@ -14,6 +14,8 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+set -xv
+
 SCRIPT_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
 
 source "${SCRIPT_DIR}/utils.sh"
@@ -26,7 +28,7 @@ source "${SCRIPT_DIR}/common.sh"
 : ${SERVICE_ACCOUNT_NAME:=kpng}
 : ${NAMESPACE:=kube-system}
 : ${KPNG_DEBUG_LEVEL:=4}
-: ${BACKEND_ARGS:="['local', 'to-${BACKEND}', '--v=${KPNG_DEBUG_LEVEL}']"}
+: ${BACKEND_ARGS:="['local', 'to-${BACKEND}', '--v=${KPNG_DEBUG_LEVEL}', '--exportMetrics=0.0.0.0:9098']"}
 : ${SERVER_ARGS:="['kube','--kubeconfig=/var/lib/kpng/kubeconfig.conf', '--exportMetrics=0.0.0.0:9099', 'to-api']"}
 : ${DEPLOYMENT_MODEL:="split-process-per-node"}
 : ${DEPLOY_PROMETHEUS:="false"}
@@ -53,7 +55,7 @@ function install_k8s {
     kind version
 
     echo "****************************************************"
-    kind delete cluster --name kpng-proxy
+    # kind delete cluster --name kpng-proxy
     kind create cluster --config kind.yaml --image "${KINDEST_NODE_IMAGE}":"${K8S_VERSION}"
     echo "****************************************************"
 }
@@ -85,7 +87,7 @@ function install_kpng {
     # Deleting any previous daemonsets.apps kpng
     kubectl delete -f kpng-deployment-ds.yaml 2> /dev/null
     kubectl create -f kpng-deployment-ds.yaml
-    rm -rf kpng-deployment-ds.yaml
+    # rm -rf kpng-deployment-ds.yaml
 }
 
 # cd to dir of this script

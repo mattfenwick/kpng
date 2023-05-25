@@ -18,6 +18,7 @@ package main
 
 import (
 	"github.com/spf13/cobra"
+	"k8s.io/klog/v2"
 
 	"sigs.k8s.io/kpng/client/localsink"
 	"sigs.k8s.io/kpng/cmd/kpng/builder"
@@ -37,6 +38,7 @@ func local2sinkCmd() *cobra.Command {
 	job.BindFlags(flags)
 
 	cmd.AddCommand(builder.LocalCmds(func(sink localsink.Sink) (err error) {
+		klog.Infof("running local2sinkCmd")
 		ctx := setupGlobal()
 		job.Sink = sink
 		job.Run(ctx)

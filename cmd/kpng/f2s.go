@@ -20,6 +20,7 @@ import (
 	"context"
 
 	"github.com/spf13/cobra"
+	"k8s.io/klog/v2"
 
 	"sigs.k8s.io/kpng/server/jobs/file2store"
 	"sigs.k8s.io/kpng/server/proxystore"
@@ -58,6 +59,7 @@ func file2storeCmd() *cobra.Command {
 
 // file2storeCmdRun kicks off the file2store job.
 func file2storeCmdRun(ctx context.Context, store *proxystore.Store) {
+	klog.Infof("running file2storeCmdRun")
 	f2s := &file2store.Job{
 		FilePath: f2sInput,
 		Store:    store,
